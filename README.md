@@ -7,12 +7,12 @@ Welcome to the Status Checkr for Service Organizations! This Python-based progra
 - Retrieve information such as active status and last vetted date
 - Normalize date formats for consistent data representation
 - Handle retries and error scenarios gracefully
-- Customize the range of pages to scrape and filter results based on active status
-- Export the scraped data to a CSV file for further analysis and use
+- Customize the range of pages and filter results based on active status
+- Export the data to a CSV file for further analysis and use
 
 ## Getting Started
 
-To get started with the Web Scraper for Service Organizations, follow these steps:
+To get started with the Status Checkr for Service Organizations, follow these steps:
 
 1. Clone the repository to your local machine.
 2. Install the required dependencies by running `pip install -r requirements.txt`.
@@ -23,7 +23,7 @@ To get started with the Web Scraper for Service Organizations, follow these step
    ```
 4. Make sure you have the appropriate webdriver installed for your browser (e.g., ChromeDriver for Google Chrome).
 5. Run the script using `python update_deactivated_list.py` and follow the prompts to configure the scraping process.
-6. Sit back and let the scraper do its magic! The data will be saved to a CSV file specified during the setup (organizations.csv is defailt).
+6. Sit back while the data is saved to a CSV file specified during the setup (organizations.csv is defailt).
 
 ## Requirements
 
@@ -45,5 +45,5 @@ We welcome contributions from the community! If you have any ideas, suggestions,
 
 ## License
 
-The Web Scraper for Service Organizations is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute the code as per the terms of the license.
+The Service Org Status Checkr is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute the code as per the terms of the license.
 
