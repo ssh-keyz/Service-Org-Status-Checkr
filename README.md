@@ -16,13 +16,13 @@ To get started with the Status Checkr for Service Organizations, follow these st
 
 1. Clone the repository to your local machine.
 2. Install the required dependencies by running `pip install -r requirements.txt`.
-3. Create a `.env` file in the project root and provide the following environment variables:
+3. Rename the `.env.example` to `.env` provide the following environment variables:
    ```
    BASE_URL=
    END_URL=
    ```
 4. Make sure you have the appropriate webdriver installed for your browser (e.g., ChromeDriver for Google Chrome).
-5. Run the script using `python update_deactivated_list.py` and follow the prompts to configure the scraping process.
+5. Run the script using `python update_deactivated_list.py` and follow the prompts.
 6. Sit back while the data is saved to a CSV file specified during the setup (organizations.csv is defailt).
 
 ## Requirements
@@ -31,7 +31,7 @@ To get started with the Status Checkr for Service Organizations, follow these st
 - Selenium
 - python-dotenv
 
-These dependencies are listed in the `requirements.txt` file and can be easily installed using ``` pip install -r requirements.txt ```.
+These dependencies are listed in the ```requirements.txt``` file and can be easily installed using ``` pip install -r requirements.txt ```.
 
 ## Customization
 
