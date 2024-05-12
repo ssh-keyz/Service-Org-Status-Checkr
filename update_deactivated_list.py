@@ -17,16 +17,16 @@ end_url = os.getenv("END_URL")
 
 def normalize_date(date_string):
     date_formats = [
-        "%m/%d/%Y",  # MM/DD/YYYY
-        "%m/%d/%y",  # MM/DD/YY
-        "%m-%d-%Y",  # MM-DD-YYYY
-        "%m-%d-%y",  # MM-DD-YY
-        "%Y/%m/%d",  # YYYY/MM/DD
-        "%Y-%m-%d",  # YYYY-MM-DD
+        "%m/%d/%Y",   # MM/DD/YYYY
+        "%m/%d/%y",   # MM/DD/YY
+        "%m-%d-%Y",   # MM-DD-YYYY
+        "%m-%d-%y",   # MM-DD-YY
+        "%Y/%m/%d",   # YYYY/MM/DD
+        "%Y-%m-%d",   # YYYY-MM-DD
         "%b %d, %Y",  # MMM DD, YYYY (e.g., Jan 01, 2023)
         "%B %d, %Y",  # MMMM DD, YYYY (e.g., January 01, 2023)
-        "%b %d %Y",  # MMM DD YYYY (e.g., Jan 01 2023)
-        "%B %d %Y",  # MMMM DD YYYY (e.g., January 01 2023)
+        "%b %d %Y",   # MMM DD YYYY (e.g., Jan 01 2023)
+        "%B %d %Y",   # MMMM DD YYYY (e.g., January 01 2023)
     ]
 
     for format in date_formats:
@@ -137,5 +137,5 @@ with open(output_file, "w", newline="") as csvfile:
 
 write_csv(output_file, existing_data)
 
-driver.quit()  # Close the webdriver
+driver.quit()  
 print("Script completed. Results saved to", output_file)
