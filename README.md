@@ -31,13 +31,12 @@ To get started with the Status Checkr for Service Organizations, follow these st
 - Selenium
 - python-dotenv
 
-These dependencies are listed in the ```requirements.txt``` file and can be easily installed using ``` pip install -r requirements.txt ```.
+These dependencies are listed in the ```requirements.txt``` file and can be easily installed using ``` pip install -r requirements.txt ```
 
 ## Customization
 
 The Status Checkr for Service Organizations provides flexibility for customization. You can modify the script to adapt to different website structures, add additional data fields, or integrate with other tools and services.
-
-Feel free to explore the codebase and make any necessary adjustments to suit your specific requirements. The script is designed to be modular and easy to understand..
+Feel free to explore the codebase and make any necessary adjustments to suit your specific requirements.
 
 ## Contributing
 
