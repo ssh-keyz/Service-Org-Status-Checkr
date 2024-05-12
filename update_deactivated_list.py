@@ -9,6 +9,7 @@ import re
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+import sys
 
 load_dotenv()
 
@@ -45,11 +46,16 @@ def normalize_dates(dates):
         normalized_dates.append(normalized_date)
     return normalized_dates
 
-def prompt_user():
+def prompt_user(all_flag):
     output_file = input("Enter the name of the CSV file (default: organizations.csv): ") or "organizations.csv"
     print_active_only = input("Do you want to print only active pages? (y/n, default: n): ").lower() == "y"
     start_num = int(input("Enter the starting number: "))
-    end_num = int(input("Enter the ending number: "))
+    
+    if all_flag:
+        end_num = int(100000)
+    else:
+        end_num = int(input("Enter the ending number: "))
+    
     pages_to_check = range(start_num, end_num + 1)
     return output_file, print_active_only, pages_to_check
 
@@ -70,8 +76,8 @@ def process_page(driver, page_num, existing_data, writer):
     driver.get(url)
 
     retry_count = 0
-    max_retries = 3
-
+    max_retries = 1
+    
     while retry_count < max_retries:
         try:
             time.sleep(0.2)
@@ -102,7 +108,7 @@ def process_page(driver, page_num, existing_data, writer):
             if retry_count < max_retries:
                 print(f"Error accessing page {page_num}. Retrying... (Attempt {retry_count})")
                 driver.refresh()  # Reload the page
-                time.sleep(5)  # Wait for 5 seconds before retrying
+                time.sleep(2) # 
             else:
                 print(f"Error accessing page {page_num}. Skipping after {max_retries} attempts.")
 
@@ -123,7 +129,9 @@ def write_csv(output_file, existing_data):
             if not print_active_only or data[0] == "True":
                 writer.writerow([page_num, data[0], data[1]])
 
-output_file, print_active_only, pages_to_check = prompt_user()
+all_flag = "-all" in sys.argv
+
+output_file, print_active_only, pages_to_check = prompt_user(all_flag)
 driver = webdriver.Chrome()  # Make sure you have the appropriate webdriver installed
 existing_data = read_existing_data(output_file)
 
@@ -132,10 +140,29 @@ with open(output_file, "w", newline="") as csvfile:
     writer = csv.writer(csvfile)
     writer.writerow(["Page Number", "Active", "Last Vetted"])  # Write the header row
 
+    consecutive_404_count = 0
     for page_num in pages_to_check:
-        process_page(driver, page_num, existing_data, writer)
+        url = f"{base_url}{page_num}{end_url}"
+        driver.get(url)
+
+        # Check the console for the specific 404 message
+        console_log = driver.get_log('browser')
+        if any(re.search(r"/api/resources/\d+:\d+\s+Failed to load resource: the server responded with a status of 404 ()", entry['message']) for entry in console_log):
+            driver.refresh()
+            time.sleep(5)
+            console_log = driver.get_log('browser')
+            if any(re.search(r"/api/resources/\d+:\d+\s+Failed to load resource: the server responded with a status of 404 ()", entry['message']) for entry in console_log):
+                consecutive_404_count += 1
+                if consecutive_404_count >= 10:
+                    print(f"10 consecutive pages not found. Ending the program.")
+                    break
+            else:
+                consecutive_404_count = 0
+        else:
+            consecutive_404_count = 0
+            process_page(driver, page_num, existing_data, writer)
 
 write_csv(output_file, existing_data)
 
-driver.quit()  
+driver.quit()  # Close the webdriver
 print("Script completed. Results saved to", output_file)
