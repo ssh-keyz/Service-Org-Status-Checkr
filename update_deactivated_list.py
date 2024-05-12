@@ -38,7 +38,7 @@ def normalize_date(date_string):
 
     return date_string
 
-def normalizeDates(dates):
+def normalize_dates(dates):
     normalized_dates = []
     for date in dates:
         normalized_date = normalize_date(date)
@@ -85,7 +85,7 @@ def process_page(driver, page_num, existing_data, writer):
 
             date_pattern = r"\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b"
             dates = re.findall(date_pattern, internal_note)
-            dates = normalizeDates(dates)
+            dates = normalize_dates(dates)
             last_vetted = max(dates) if dates else "Missing"
             
             if page_num in existing_data:
